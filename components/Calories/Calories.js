@@ -1,47 +1,49 @@
 import React from 'react'
 import { View, Text } from 'react-native'
 import ProgressCircle from 'react-native-progress-circle'
+import styles from './CaloriesStyle'
 
 const Calories = () => {
+    const {CaloriesWrapper,DemandWrapper,DemandItem,LightText,CaloriesText,BigText} = styles
     return (
-        <View>
-            <View><Text>Calories left</Text></View>
-            <View><Text>1.480</Text><Text>kcal</Text></View>
-            <View>
-                <View>
+        <View style={CaloriesWrapper}>
+            <View><Text style={LightText}>Calories left</Text></View>
+            <View style={DemandItem}><Text style={BigText}>1.480</Text><Text style={{...BigText,color:'#000'}}> kcal</Text></View>
+            <View style={DemandWrapper}>
+                <View style={DemandItem}>
                     <ProgressCircle percent={30}
                                     radius={20}
                                     borderWidth={5}
                                     color="#6900fc"
-                                    shadowColor="#999"
+                                    shadowColor="#fff"
                                     bgColor="#fff"/>
-                                    <View>
-                                        <Text>Carbs</Text>
-                                        <Text>70g left</Text>
+                                    <View style={{marginLeft:5}}>
+                                        <Text style={CaloriesText}>Carbs</Text>
+                                        <Text style={LightText}>70g left</Text>
                                     </View>
                 </View>
-                <View>
+                <View style={DemandItem}>
                 <ProgressCircle percent={55}
                                     radius={20}
                                     borderWidth={5}
                                     color="#f5b800"
-                                    shadowColor="#999"
+                                    shadowColor="#fff"
                                     bgColor="#fff"/>
-                                    <View>
-                                        <Text>Fat</Text>
-                                        <Text>26g left</Text>
+                                    <View style={{marginLeft:5}}>
+                                        <Text style={CaloriesText}>Fat</Text>
+                                        <Text style={LightText}>26g left</Text>
                                     </View>
                 </View>
-                <View>
+                <View style={DemandItem}>
                 <ProgressCircle percent={90}
                                     radius={20}
                                     borderWidth={5}
                                     color="#3399FF"
-                                    shadowColor="#999"
+                                    shadowColor="#fff"
                                     bgColor="#fff"/>
-                                    <View>
-                                        <Text>Protein</Text>
-                                        <Text>58g left</Text>
+                                    <View style={{marginLeft:5}}>
+                                        <Text style={CaloriesText}>Protein</Text>
+                                        <Text style={LightText}>58g left</Text>
                                     </View>
                 </View>
             </View>

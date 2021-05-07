@@ -21,7 +21,6 @@ useEffect(()=>{
     setNumberName([])
     for (let index = -3; index < 2; index++) {
         setWeekName(weekName => ([...weekName, days[new Date().getDay()+index]]))
-        console.log(new Date().getDay())
         setNumberName(weekNumber => ([...weekNumber, new Date().getDate()+index+1]))
     }
 },[])
