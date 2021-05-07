@@ -1,10 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
 
 import React from 'react';
 import {
@@ -16,12 +9,16 @@ import {
   useColorScheme,
   View
 } from 'react-native';
+import Header from './components/Header/Header'
+import Calendary from './components/Calendary/Calendary'
+
 
 const App = () => {
   return(
-    <View>
-      <Text>Witaj Świecie</Text>
-    </View>
+    <>
+    <Header/>
+    <Calendary/>
+    </>
   )
 }
 
