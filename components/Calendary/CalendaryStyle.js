@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
         justifyContent:'space-evenly',
         alignItems:'center',
         flexDirection:'column',
-        paddingVertical:2,
+        paddingVertical:5,
         borderRadius:35
         
     },

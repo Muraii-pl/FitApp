@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import Header from './components/Header/Header'
 import Calendary from './components/Calendary/Calendary'
+import Calories from './components/Calories/Calories'
 
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
     <>
     <Header/>
     <Calendary/>
+    <Calories/>
     </>
   )
 }
