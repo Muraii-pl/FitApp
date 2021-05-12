@@ -6,7 +6,7 @@ import {
 const styles = StyleSheet.create({
     Input:{
         width:120,
-        height:20,
+        height:20,dsa
         
     }
 })
