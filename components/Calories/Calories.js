@@ -54,11 +54,3 @@ const Calories = () => {
 export default Calories
 
 
-{/* <ProgressCircle
-percent={30}
-radius={20}
-borderWidth={5}
-color="#3399FF"
-shadowColor="#999"
-bgColor="#fff"
-/> */}

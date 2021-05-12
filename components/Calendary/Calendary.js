@@ -12,10 +12,6 @@ const Calendary = () => {
     const [weekNumber,setNumberName] = useState([])
 
 
-
-
-
-
 useEffect(()=>{
     setWeekName([])
     setNumberName([])

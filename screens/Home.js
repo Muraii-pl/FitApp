@@ -1,11 +1,18 @@
 import React from 'react'
 import { View, Text } from 'react-native'
+import Header from '../components/Header/Header'
+import Calendary from '../components/Calendary/Calendary'
+import Calories from '../components/Calories/Calories'
+import { StackNavigator } from 'react-navigation'
 
-const Home = () => {
+const Home = props => {
+    const { navigate } = props.navigation
     return (
-        <View>
-            <Text>Home</Text>
-        </View>
+        <>
+        <Header nav={navigate}/>
+        <Calendary/>
+        <Calories/>
+        </>
     )
 }
 
