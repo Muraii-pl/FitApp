@@ -8,10 +8,12 @@ const Header = props => {
     const {menu_bars} = icon
     const {nav} = props
     return (
+        
         <SafeAreaView style={HeaderBar}>
             <Image source={menu_bars} style={HeaderIcon}/>
             <Text style={HeaderItem}>FattyCount</Text>
-            <Pressable style={HeaderPhoto} onPress={()=> nav('Bio')}></Pressable>
+            <Pressable style={HeaderPhoto} onPress={()=> {
+                nav('Bio')}}></Pressable>
             
         </SafeAreaView>
     )
