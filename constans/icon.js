@@ -9,6 +9,7 @@ export const settings = require('../assets/icons/settings.png')
 export const starch = require('../assets/icons/starch.png')
 export const fat = require('../assets/icons/trans-fat.png')
 export const search = require('../assets/icons/search.png')
+export const edit = require('../assets/icons/edit.png')
 
 export default {
     arrow,
@@ -21,5 +22,6 @@ export default {
     settings,
     starch,
     fat,
-    search
+    search,
+    edit
 }

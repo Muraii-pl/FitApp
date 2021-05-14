@@ -14,11 +14,15 @@ const Stack = createStackNavigator()
 
 const App = () => {
 
-  const [value,setValue] = useState("Hi")
+  const [contextValue,setContextValue] = useState({
+    age:"",
+    height:"",
+    weight:""
+  })
 
   
   return(
-  <BMRContext.Provider value={ {value, setValue }}>
+  <BMRContext.Provider value={ {contextValue, setContextValue }}>
    <NavigationContainer>
      <Stack.Navigator
      screenOptions={{
