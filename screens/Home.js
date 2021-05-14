@@ -14,23 +14,13 @@ const Home = props => {
 
     const { navigate } = props.navigation
 
-        const {age,height,weight} = contextValue
-        //const bmr = () => {
-        //const plec;
-        //const waga;
-        //const wzrost;
-        //const wiek;
-        //const aktywnosc;
-        //const pal = aktywnosc == 'Znikoma' ? 1.3 : aktywnosc == 'Bardzo mała' ? 1.5 : aktywnosc == 'Umiarkowana' ? 1.7 : aktywnosc == 'Duza' ? 1.9 : 2.4 
-        //const cpm = plec == 'Male' ? ((9.99 * waga) + (6.25 * wzrost) - (4.92 * wiek) + 5) * pal : ((9.99 * waga) + (6.25 * wzrost) - (4.92 * wiek) - 161) * pal
-        //return cpm;
-    //}
+    const {age,height,weight,gender,activity,kcal} = contextValue
+
     return (
         <>
             <Header nav={navigate}/>
             <Calendary/>
             <Calories/>
-            <Text>{age + " " + height + " " + weight}</Text>
         </>
     )
 }

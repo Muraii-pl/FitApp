@@ -19,7 +19,8 @@ const App = () => {
     height:"",
     weight:"",
     gender:"",
-    activity:""
+    activity:"",
+    kcal: ""
   })
 
   

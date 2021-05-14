@@ -1,14 +1,17 @@
-import React from 'react'
+import React,{ useContext } from 'react'
 import { View, Text } from 'react-native'
 import ProgressCircle from 'react-native-progress-circle'
 import styles from './CaloriesStyle'
+import {BMRContext} from '../../context/BMRcontext'
 
 const Calories = () => {
+    const {contextValue,setContextValue}= useContext(BMRContext)
+    const {age,height,weight,gender,activity,kcal} = contextValue
     const {CaloriesWrapper,DemandWrapper,DemandItem,LightText,CaloriesText,BigText} = styles
     return (
         <View style={CaloriesWrapper}>
             <View><Text style={LightText}>Calories left</Text></View>
-            <View style={DemandItem}><Text style={BigText}>1.480</Text><Text style={{...BigText,color:'#000'}}> kcal</Text></View>
+            <View style={DemandItem}><Text style={BigText}>{kcal}</Text><Text style={{...BigText,color:'#000'}}> kcal</Text></View>
             <View style={DemandWrapper}>
                 <View style={DemandItem}>
                     <ProgressCircle percent={30}

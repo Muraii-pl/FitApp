@@ -11,18 +11,21 @@ const Bio = () => {
       height: "",
       weight: "",
       gender: "",
-      activity: ""
+      activity: "",
+      kcal: ""
     });
     const [modalOpen,setModalOpen] = useState(false)
     const { age,height,weight,gender,activity} = metric
     const {contextValue,setContextValue}= useContext(BMRContext)
     const [textShow,setTextShow] = useState(false)
-    const [selectedValue, setSelectedValue] = useState(" ")
+    const [selectedValue, setSelectedValue] = useState(false)
     const [selectedActivity, setSelectedActivity] = useState(false)
 
     const bmrHandle = () => {
       if(!isNaN(parseInt(age)) && !isNaN(parseInt(height)) && !isNaN(parseInt(weight)) && String(gender) != '' && String(activity) != '') {
-        setContextValue({"age":age,"height":height,"weight":weight,"gender":gender,"activity":activity})
+        const pal = activity == 'sedentary' ? 1.3 : activity == 'light' ? 1.5 : activity == 'moderative' ? 1.7 : activity == 'active' ? 1.9 : 2.4 
+        const cpm = gender == 'male' ? ((9.99 * weight) + (6.25 * height) - (4.92 * age) + 5) * pal : ((9.99 * weight) + (6.25 * height) - (4.92 * age) - 161) * pal
+        setContextValue({"age":age,"height":height,"weight":weight,"gender":gender,"activity":activity,"kcal":parseInt(cpm)})
         setModalOpen(false)
         setTextShow(false)
         console.log(!isNaN(parseInt(age)) && !isNaN(parseInt(height)) && !isNaN(parseInt(weight)))
