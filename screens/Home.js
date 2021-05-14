@@ -8,14 +8,14 @@ import {BMRContext} from '../context/BMRcontext'
 
 
 
+
 const Home = props => {
-    const {value, setValue}= useContext(BMRContext)
+    const {contextValue,setContextValue}= useContext(BMRContext)
 
     const { navigate } = props.navigation
-<<<<<<< HEAD
 
-=======
-    //const bmr = () => {
+        const {age,height,weight} = contextValue
+        //const bmr = () => {
         //const plec;
         //const waga;
         //const wzrost;
@@ -25,13 +25,12 @@ const Home = props => {
         //const cpm = plec == 'Male' ? ((9.99 * waga) + (6.25 * wzrost) - (4.92 * wiek) + 5) * pal : ((9.99 * waga) + (6.25 * wzrost) - (4.92 * wiek) - 161) * pal
         //return cpm;
     //}
->>>>>>> 63b68d75399937eba7b2df62253d8b55dac3eeb5
     return (
         <>
             <Header nav={navigate}/>
             <Calendary/>
             <Calories/>
-            <Text>{value}</Text>
+            <Text>{age + " " + height + " " + weight}</Text>
         </>
     )
 }

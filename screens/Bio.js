@@ -1,43 +1,91 @@
-<<<<<<< HEAD
-import React, { useContext } from 'react'
-import { View, Text, TextInput} from 'react-native'
+import React, { useState, useContext } from 'react'
+import { View, Text, TextInput, StyleSheet, Modal, TouchableHighlight, Image, Button} from 'react-native'
+import {Picker} from '@react-native-picker/picker'
+import { arrow, edit } from '../constans/icon'
+
 import {BMRContext} from '../context/BMRcontext'
 
- 
-
-
 const Bio = () => {
-    const {value,setValue} = useContext(BMRContext)
-    const dataHandle = () => {
-        setValue("Zmiana")
+    const [metric, setMetric] = useState({
+      age: "",
+      height: "",
+      weight: ""
+    });
+    const [modalOpen,setModalOpen] = useState(false)
+    const { age,height,weight} = metric
+    const {contextValue,setContextValue}= useContext(BMRContext)
+    const [textShow,setTextShow] = useState(false)
+
+    const bmrHandle = () => {
+      if(!isNaN(age) && !isNaN(height) && !isNaN(weight)){
+        setContextValue({"age":age,"height":height,"weight":weight})
+        // setContextValue(...contextValue,height)
+        // setContextValue(...contextValue,weight)
+        setModalOpen(false)
+      } else {
+        setTextShow(true)
+      }
+
     }
-    return (
-        
-        <>
-            <View>
-                <Text>Bio</Text>
-                <TextInput onChangeText={dataHandle} />
-            </View>
-        </>
-        
-=======
-import React, {useState} from 'react'
-import { View, Text, TextInput, StyleSheet, Picker } from 'react-native'
 
-const Bio = () => {
-    const [number, onChangeNumber] = useState(null);
-    const [number2, onChangeNumber2] = useState(null);
-    const [number3, onChangeNumber3] = useState(null);
     return (
         <View>
-            <Text>Bio</Text>
-            <TextInput
+
+          {/* Modal View */}
+          
+
+          <Modal visible={modalOpen} animationType='slide'>
+            <View>
+              <TouchableHighlight onPress={()=> setModalOpen(false)}>
+                <Image source={arrow}/>
+              </TouchableHighlight> 
+                <Text>Age</Text><TextInput
             style={styles.input}
-            onChangeText={onChangeNumber}
-            value={number}
-            placeholder="Age"
+            onChangeText={value=> {
+              setMetric({...metric,age:value})
+            }}
+            value={isNaN(metric.age) ?  null : metric.age }
+            placeholder= {metric.age == "" ?  "Age" : metric.age }
             keyboardType="numeric"
             />
+
+
+          <Text>Height</Text>
+          <TextInput
+            style={styles.input}
+            onChangeText={value=> {
+              setMetric({...metric,height:value})
+            }}
+            value={isNaN(metric.height) ?  null : metric.height }
+            placeholder= {metric.height == "" ?  "Height" : metric.height }
+            keyboardType="numeric"
+            />
+
+        <Text>Weight</Text>
+          <TextInput
+            style={styles.input}
+            onChangeText={value=> {
+              setMetric({...metric,weight:value})
+            }}
+            value={isNaN(metric.weight) ?  null : metric.weight }
+            placeholder= {metric.weight == "" ?  "Weight" : metric.weight }
+            keyboardType="numeric"
+            />
+
+            <Button title={"Accept"} onPress={bmrHandle}/>
+            <Text>{textShow ?  "All date must be completed" : ""}</Text>
+            </View>
+          </Modal>
+
+            <Text>Bio</Text> 
+            <TouchableHighlight onPress={()=> {console.log(contextValue)
+              setModalOpen(true)}}>
+                <Image style={{height:24,
+                width:24}}source={edit}/>
+              </TouchableHighlight>
+            
+
+            {/* 
             <TextInput
             style={styles.input}
             onChangeText={onChangeNumber2}
@@ -52,8 +100,16 @@ const Bio = () => {
             placeholder="Weight"
             keyboardType="numeric"
             />
+
+    <Picker
+        style={{ height: 50, width: 150 }}
+      >
+        <Picker.Item label="Kobieta" value="java" />
+        <Picker.Item label="Mężczyzna" value="js" />
+      </Picker> */}
+
+      
         </View>
->>>>>>> 63b68d75399937eba7b2df62253d8b55dac3eeb5
     )
 }
 
