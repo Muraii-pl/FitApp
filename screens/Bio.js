@@ -12,7 +12,10 @@ const Bio = () => {
       weight: "",
       gender: "",
       activity: "",
-      kcal: ""
+      kcal: "",
+      carbs: "",
+      fat: "",
+      prot: ""
     });
     const [modalOpen,setModalOpen] = useState(false)
     const { age,height,weight,gender,activity} = metric
@@ -25,7 +28,10 @@ const Bio = () => {
       if(!isNaN(parseInt(age)) && !isNaN(parseInt(height)) && !isNaN(parseInt(weight)) && String(gender) != '' && String(activity) != '') {
         const pal = activity == 'sedentary' ? 1.3 : activity == 'light' ? 1.5 : activity == 'moderative' ? 1.7 : activity == 'active' ? 1.9 : 2.4 
         const cpm = gender == 'male' ? ((9.99 * weight) + (6.25 * height) - (4.92 * age) + 5) * pal : ((9.99 * weight) + (6.25 * height) - (4.92 * age) - 161) * pal
-        setContextValue({"age":age,"height":height,"weight":weight,"gender":gender,"activity":activity,"kcal":parseInt(cpm)})
+        const carbs = Math.ceil((cpm*0.55)/4);
+        const fat = Math.ceil((cpm*0.3)/9);
+        const prot = Math.ceil((cpm*0.15)/4);
+        setContextValue({"age":age,"height":height,"weight":weight,"gender":gender,"activity":activity,"kcal":parseInt(cpm),"carbs":carbs,"fat":fat,"prot":prot})
         setModalOpen(false)
         setTextShow(false)
         console.log(!isNaN(parseInt(age)) && !isNaN(parseInt(height)) && !isNaN(parseInt(weight)))

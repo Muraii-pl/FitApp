@@ -20,7 +20,10 @@ const App = () => {
     weight:"",
     gender:"",
     activity:"",
-    kcal: ""
+    kcal: "",
+    carbs: "",
+    fat: "",
+    prot: ""
   })
 
   

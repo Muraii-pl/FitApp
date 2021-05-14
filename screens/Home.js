@@ -14,8 +14,6 @@ const Home = props => {
 
     const { navigate } = props.navigation
 
-    const {age,height,weight,gender,activity,kcal} = contextValue
-
     return (
         <>
             <Header nav={navigate}/>

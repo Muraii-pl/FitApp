@@ -6,7 +6,7 @@ import {BMRContext} from '../../context/BMRcontext'
 
 const Calories = () => {
     const {contextValue,setContextValue}= useContext(BMRContext)
-    const {age,height,weight,gender,activity,kcal} = contextValue
+    const {kcal,carbs,fat,prot} = contextValue
     const {CaloriesWrapper,DemandWrapper,DemandItem,LightText,CaloriesText,BigText} = styles
     return (
         <View style={CaloriesWrapper}>
@@ -22,7 +22,7 @@ const Calories = () => {
                                     bgColor="#fff"/>
                                     <View style={{marginLeft:5}}>
                                         <Text style={CaloriesText}>Carbs</Text>
-                                        <Text style={LightText}>70g left</Text>
+                                        <Text style={LightText}>{carbs}g left</Text>
                                     </View>
                 </View>
                 <View style={DemandItem}>
@@ -34,7 +34,7 @@ const Calories = () => {
                                     bgColor="#fff"/>
                                     <View style={{marginLeft:5}}>
                                         <Text style={CaloriesText}>Fat</Text>
-                                        <Text style={LightText}>26g left</Text>
+                                        <Text style={LightText}>{fat}g left</Text>
                                     </View>
                 </View>
                 <View style={DemandItem}>
@@ -46,7 +46,7 @@ const Calories = () => {
                                     bgColor="#fff"/>
                                     <View style={{marginLeft:5}}>
                                         <Text style={CaloriesText}>Protein</Text>
-                                        <Text style={LightText}>58g left</Text>
+                                        <Text style={LightText}>{prot}g left</Text>
                                     </View>
                 </View>
             </View>
