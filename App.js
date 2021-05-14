@@ -17,7 +17,9 @@ const App = () => {
   const [contextValue,setContextValue] = useState({
     age:"",
     height:"",
-    weight:""
+    weight:"",
+    gender:"",
+    activity:""
   })
 
   

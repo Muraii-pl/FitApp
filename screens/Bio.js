@@ -9,19 +9,23 @@ const Bio = () => {
     const [metric, setMetric] = useState({
       age: "",
       height: "",
-      weight: ""
+      weight: "",
+      gender: "",
+      activity: ""
     });
     const [modalOpen,setModalOpen] = useState(false)
-    const { age,height,weight} = metric
+    const { age,height,weight,gender,activity} = metric
     const {contextValue,setContextValue}= useContext(BMRContext)
     const [textShow,setTextShow] = useState(false)
+    const [selectedValue, setSelectedValue] = useState(" ")
+    const [selectedActivity, setSelectedActivity] = useState(false)
 
     const bmrHandle = () => {
-      if(!isNaN(age) && !isNaN(height) && !isNaN(weight)){
-        setContextValue({"age":age,"height":height,"weight":weight})
-        // setContextValue(...contextValue,height)
-        // setContextValue(...contextValue,weight)
+      if(!isNaN(parseInt(age)) && !isNaN(parseInt(height)) && !isNaN(parseInt(weight)) && String(gender) != '' && String(activity) != '') {
+        setContextValue({"age":age,"height":height,"weight":weight,"gender":gender,"activity":activity})
         setModalOpen(false)
+        setTextShow(false)
+        console.log(!isNaN(parseInt(age)) && !isNaN(parseInt(height)) && !isNaN(parseInt(weight)))
       } else {
         setTextShow(true)
       }
@@ -71,44 +75,56 @@ const Bio = () => {
             placeholder= {metric.weight == "" ?  "Weight" : metric.weight }
             keyboardType="numeric"
             />
+        <Text>Gender</Text>
+            <Picker
+            selectedValue={selectedValue}
+            style={styles.input}
+            onValueChange={itemValue => {
+                setMetric({...metric,gender:itemValue})
+                setSelectedValue(itemValue)
+            }}
+            value={metric.gender == '' ?  null : metric.gender }
+            >
+            <Picker.Item label="" value="" />
+            <Picker.Item label="Female" value="female" />
+            <Picker.Item label="Male" value="male" />
+            </Picker>
+
+        <Text>Activity</Text>
+            <Picker
+            selectedValue={selectedActivity}
+            style={styles.input}
+            onValueChange={itemValue => {
+                setMetric({...metric,activity:itemValue})
+                setSelectedActivity(itemValue)
+            }}
+            value={metric.activity == '' ?  null : metric.activity }
+            >
+            <Picker.Item label="" value="" />
+            <Picker.Item label="Sedentary" value="sedentary" />
+            <Picker.Item label="Light" value="light" />
+            <Picker.Item label="Moderative" value="moderative" />
+            <Picker.Item label="Active" value="active" />
+            <Picker.Item label="Extra Active" value="extra active" />
+            </Picker>
 
             <Button title={"Accept"} onPress={bmrHandle}/>
             <Text>{textShow ?  "All date must be completed" : ""}</Text>
             </View>
           </Modal>
 
-            <Text>Bio</Text> 
+        <Text>Bio</Text> 
             <TouchableHighlight onPress={()=> {console.log(contextValue)
               setModalOpen(true)}}>
                 <Image style={{height:24,
                 width:24}}source={edit}/>
               </TouchableHighlight>
-            
+              <Text>Age: {age}</Text>
+              <Text>Height: {height}</Text>
+              <Text>Weight: {weight}</Text>
+              <Text>Gender: {gender}</Text>
+              <Text>Activity: {activity}</Text>
 
-            {/* 
-            <TextInput
-            style={styles.input}
-            onChangeText={onChangeNumber2}
-            value={number2}
-            placeholder="Height"
-            keyboardType="numeric"
-            />
-            <TextInput
-            style={styles.input}
-            onChangeText={onChangeNumber3}
-            value={number3}
-            placeholder="Weight"
-            keyboardType="numeric"
-            />
-
-    <Picker
-        style={{ height: 50, width: 150 }}
-      >
-        <Picker.Item label="Kobieta" value="java" />
-        <Picker.Item label="Mężczyzna" value="js" />
-      </Picker> */}
-
-      
         </View>
     )
 }
