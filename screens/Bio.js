@@ -31,7 +31,7 @@ const Bio = () => {
 
     const bmrHandle = () => {
       if(!isNaN(parseInt(mage)) && !isNaN(parseInt(mheight)) && !isNaN(parseInt(mweight)) && String(mgender) != '' && String(mactivity) != '') {
-        const pal = mactivity == 'sedentary' ? 1.3 : mactivity == 'light' ? 1.5 : mactivity == 'moderative' ? 1.7 : mactivity == 'active' ? 1.9 : 2.4 
+        const pal = mactivity == 'sedentary' ? 1.3 : mactivity == 'light' ? 1.4 : mactivity == 'moderative' ? 1.5 : mactivity == 'active' ? 1.6 : 1.7 
         const cpm = mgender == 'male' ? ((9.99 * mweight) + (6.25 * mheight) - (4.92 * mage) + 5) * pal : ((9.99 * mweight) + (6.25 * mheight) - (4.92 * mage) - 161) * pal
         const carbs = Math.ceil((cpm*0.55)/4);
         const fat = Math.ceil((cpm*0.3)/9);
