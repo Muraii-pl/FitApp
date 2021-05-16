@@ -11,7 +11,7 @@ const Header = props => {
         
         <SafeAreaView style={HeaderBar}>
             <Image source={menu_bars} style={HeaderIcon}/>
-            <Text style={HeaderItem}>FattyCount</Text>
+            <Text style={HeaderItem}>BeFit</Text>
             <Pressable style={HeaderPhoto} onPress={()=> {
                 nav('Bio')}}></Pressable>
             
