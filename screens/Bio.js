@@ -4,37 +4,42 @@ import {Picker} from '@react-native-picker/picker'
 import { arrow, edit } from '../constans/icon'
 
 import {BMRContext} from '../context/BMRcontext'
+import { act } from 'react-test-renderer'
 
 const Bio = () => {
+  const {contextValue,setContextValue}= useContext(BMRContext)
+  const {age,height,weight,gender,activity} = contextValue
     const [metric, setMetric] = useState({
-      age: "",
-      height: "",
-      weight: "",
-      gender: "",
-      activity: "",
+      mage: age,
+      mheight: height,
+      mweight: weight,
+      mgender: gender,
+      mactivity: activity,
       kcal: "",
       carbs: "",
       fat: "",
       prot: ""
     });
     const [modalOpen,setModalOpen] = useState(false)
-    const { age,height,weight,gender,activity} = metric
-    const {contextValue,setContextValue}= useContext(BMRContext)
+    //const {contextValue,setContextValue}= useContext(BMRContext)
+    const {mage,mheight,mweight,mgender,mactivity} = metric
     const [textShow,setTextShow] = useState(false)
     const [selectedValue, setSelectedValue] = useState(false)
     const [selectedActivity, setSelectedActivity] = useState(false)
 
+
+
     const bmrHandle = () => {
-      if(!isNaN(parseInt(age)) && !isNaN(parseInt(height)) && !isNaN(parseInt(weight)) && String(gender) != '' && String(activity) != '') {
-        const pal = activity == 'sedentary' ? 1.3 : activity == 'light' ? 1.5 : activity == 'moderative' ? 1.7 : activity == 'active' ? 1.9 : 2.4 
-        const cpm = gender == 'male' ? ((9.99 * weight) + (6.25 * height) - (4.92 * age) + 5) * pal : ((9.99 * weight) + (6.25 * height) - (4.92 * age) - 161) * pal
+      if(!isNaN(parseInt(mage)) && !isNaN(parseInt(mheight)) && !isNaN(parseInt(mweight)) && String(mgender) != '' && String(mactivity) != '') {
+        const pal = mactivity == 'sedentary' ? 1.3 : mactivity == 'light' ? 1.5 : mactivity == 'moderative' ? 1.7 : mactivity == 'active' ? 1.9 : 2.4 
+        const cpm = mgender == 'male' ? ((9.99 * mweight) + (6.25 * mheight) - (4.92 * mage) + 5) * pal : ((9.99 * mweight) + (6.25 * mheight) - (4.92 * mage) - 161) * pal
         const carbs = Math.ceil((cpm*0.55)/4);
         const fat = Math.ceil((cpm*0.3)/9);
         const prot = Math.ceil((cpm*0.15)/4);
-        setContextValue({"age":age,"height":height,"weight":weight,"gender":gender,"activity":activity,"kcal":parseInt(cpm),"carbs":carbs,"fat":fat,"prot":prot})
+        setContextValue({"age":mage,"height":mheight,"weight":mweight,"gender":mgender,"activity":mactivity,"kcal":parseInt(cpm),"carbs":carbs,"fat":fat,"prot":prot})
         setModalOpen(false)
         setTextShow(false)
-        console.log(!isNaN(parseInt(age)) && !isNaN(parseInt(height)) && !isNaN(parseInt(weight)))
+        console.log(!isNaN(parseInt(mage)) && !isNaN(parseInt(mheight)) && !isNaN(parseInt(mweight)))
       } else {
         setTextShow(true)
       }
@@ -55,10 +60,10 @@ const Bio = () => {
                 <Text>Age</Text><TextInput
             style={styles.input}
             onChangeText={value=> {
-              setMetric({...metric,age:value})
+              setMetric({...metric,mage:value})
             }}
-            value={isNaN(metric.age) ?  null : metric.age }
-            placeholder= {metric.age == "" ?  "Age" : metric.age }
+            value={isNaN(metric.mage) ?  null : metric.mage }
+            placeholder= {metric.mage == "" ?  "Age" : metric.mage }
             keyboardType="numeric"
             />
 
@@ -67,10 +72,10 @@ const Bio = () => {
           <TextInput
             style={styles.input}
             onChangeText={value=> {
-              setMetric({...metric,height:value})
+              setMetric({...metric,mheight:value})
             }}
-            value={isNaN(metric.height) ?  null : metric.height }
-            placeholder= {metric.height == "" ?  "Height" : metric.height }
+            value={isNaN(metric.mheight) ?  null : metric.mheight }
+            placeholder= {metric.mheight == "" ?  "Height" : metric.mheight }
             keyboardType="numeric"
             />
 
@@ -78,21 +83,21 @@ const Bio = () => {
           <TextInput
             style={styles.input}
             onChangeText={value=> {
-              setMetric({...metric,weight:value})
+              setMetric({...metric,mweight:value})
             }}
-            value={isNaN(metric.weight) ?  null : metric.weight }
-            placeholder= {metric.weight == "" ?  "Weight" : metric.weight }
+            value={isNaN(metric.mweight) ?  null : metric.mweight }
+            placeholder= {metric.mweight == "" ?  "Weight" : metric.mweight }
             keyboardType="numeric"
             />
         <Text>Gender</Text>
             <Picker
-            selectedValue={selectedValue}
+            selectedValue={gender}
             style={styles.input}
             onValueChange={itemValue => {
-                setMetric({...metric,gender:itemValue})
+                setMetric({...metric,mgender:itemValue})
                 setSelectedValue(itemValue)
             }}
-            value={metric.gender == '' ?  null : metric.gender }
+            value={metric.mgender == '' ?  null : metric.mgender }
             >
             <Picker.Item label="" value="" />
             <Picker.Item label="Female" value="female" />
@@ -101,13 +106,13 @@ const Bio = () => {
 
         <Text>Activity</Text>
             <Picker
-            selectedValue={selectedActivity}
+            selectedValue={activity}
             style={styles.input}
             onValueChange={itemValue => {
-                setMetric({...metric,activity:itemValue})
+                setMetric({...metric,mactivity:itemValue})
                 setSelectedActivity(itemValue)
             }}
-            value={metric.activity == '' ?  null : metric.activity }
+            value={metric.mactivity == '' ?  null : metric.mactivity }
             >
             <Picker.Item label="" value="" />
             <Picker.Item label="Sedentary" value="sedentary" />
@@ -121,18 +126,18 @@ const Bio = () => {
             <Text>{textShow ?  "All date must be completed" : ""}</Text>
             </View>
           </Modal>
-
-        <Text>Bio</Text> 
-            <TouchableHighlight onPress={()=> {console.log(contextValue)
+        <Text style={styles.headline}>Bio</Text> 
+              <Text style={styles.info}>Age: {mage}</Text>
+              <Text style={styles.info}>Height: {mheight}</Text>
+              <Text style={styles.info}>Weight: {mweight}</Text>
+              <Text style={styles.info}>Gender: {mgender}</Text>
+              <Text style={styles.info}>Activity: {mactivity}</Text>
+              <TouchableHighlight style={{justifycontent:'center'}} onPress={()=> {console.log(contextValue)
               setModalOpen(true)}}>
                 <Image style={{height:24,
-                width:24}}source={edit}/>
+                width:24,
+                alignItems:'center'}}source={edit}/>
               </TouchableHighlight>
-              <Text>Age: {age}</Text>
-              <Text>Height: {height}</Text>
-              <Text>Weight: {weight}</Text>
-              <Text>Gender: {gender}</Text>
-              <Text>Activity: {activity}</Text>
 
         </View>
     )
@@ -144,6 +149,24 @@ const styles = StyleSheet.create({
       margin: 12,
       borderWidth: 1,
     },
+
+    headline: {
+      textAlign: 'center',
+      fontSize: 20,
+      fontFamily: 'IndieFlower',
+      marginTop: 0,
+    },
+
+    info: {
+      fontSize: 16,
+      fontFamily: 'IndieFlower',
+      height: 40,
+      margin: 12,
+    },
+
+    changeButton: {
+      textAlign: 'center',
+    }
   });
   
 
