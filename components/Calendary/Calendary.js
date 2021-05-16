@@ -15,8 +15,8 @@ const Calendary = () => {
 useEffect(()=>{
     setWeekName([])
     setNumberName([])
-    for (let index = -3; index < 2; index++) {
-        setWeekName(weekName => ([...weekName, days[new Date().getDay()+index]]))
+    for (let index = -3; index < 3; index++) {
+        setWeekName(weekName => ([...weekName, days.slice([new Date().getDay()+index])[0]]))
         setNumberName(weekNumber => ([...weekNumber, new Date().getDate()+index+1]))
     }
 },[])
