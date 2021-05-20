@@ -3,12 +3,14 @@ import { View, Text, TextInput, StyleSheet, Modal, TouchableHighlight, Image, Bu
 import {Picker} from '@react-native-picker/picker'
 import { arrow, edit } from '../constans/icon'
 
+import NumericInput from 'react-native-numeric-input'
+
 import {BMRContext} from '../context/BMRcontext'
 import { act } from 'react-test-renderer'
 
 const Bio = () => {
   const {contextValue,setContextValue}= useContext(BMRContext)
-  const {age,height,weight,gender,activity} = contextValue
+  const {age,height,weight,gender,activity,loss} = contextValue
     const [metric, setMetric] = useState({
       mage: age,
       mheight: height,
@@ -18,11 +20,12 @@ const Bio = () => {
       kcal: "",
       carbs: "",
       fat: "",
-      prot: ""
+      prot: "",
+      mloss: loss
     });
     const [modalOpen,setModalOpen] = useState(false)
     //const {contextValue,setContextValue}= useContext(BMRContext)
-    const {mage,mheight,mweight,mgender,mactivity} = metric
+    const {mage,mheight,mweight,mgender,mactivity,mloss} = metric
     const [textShow,setTextShow] = useState(false)
     const [selectedValue, setSelectedValue] = useState(false)
     const [selectedActivity, setSelectedActivity] = useState(false)
@@ -32,11 +35,11 @@ const Bio = () => {
     const bmrHandle = () => {
       if(!isNaN(parseInt(mage)) && !isNaN(parseInt(mheight)) && !isNaN(parseInt(mweight)) && String(mgender) != '' && String(mactivity) != '') {
         const pal = mactivity == 'sedentary' ? 1.3 : mactivity == 'light' ? 1.4 : mactivity == 'moderative' ? 1.5 : mactivity == 'active' ? 1.6 : 1.7 
-        const cpm = mgender == 'male' ? ((9.99 * mweight) + (6.25 * mheight) - (4.92 * mage) + 5) * pal : ((9.99 * mweight) + (6.25 * mheight) - (4.92 * mage) - 161) * pal
+        const cpm = mgender == 'male' ? ((9.99 * mweight) + (6.25 * mheight) - (4.92 * mage) + 5) * pal - mloss*1000: ((9.99 * mweight) + (6.25 * mheight) - (4.92 * mage) - 161) * pal - mloss*1000
         const carbs = Math.ceil((cpm*0.55)/4);
         const fat = Math.ceil((cpm*0.3)/9);
         const prot = Math.ceil((cpm*0.15)/4);
-        setContextValue({"age":mage,"height":mheight,"weight":mweight,"gender":mgender,"activity":mactivity,"kcal":parseInt(cpm),"carbs":carbs,"fat":fat,"prot":prot})
+        setContextValue({"age":mage,"height":mheight,"weight":mweight,"gender":mgender,"activity":mactivity,"kcal":parseInt(cpm),"carbs":carbs,"fat":fat,"prot":prot,"loss":mloss})
         setModalOpen(false)
         setTextShow(false)
         console.log(!isNaN(parseInt(mage)) && !isNaN(parseInt(mheight)) && !isNaN(parseInt(mweight)))
@@ -122,6 +125,27 @@ const Bio = () => {
             <Picker.Item label="Extra Active" value="extra active" />
             </Picker>
 
+        <Text>Weight Loss per Week</Text> 
+          <NumericInput 
+            value={loss}
+            onChange={value => {
+              setMetric({...metric,mloss:value})
+            }} 
+            minValue={0}
+            maxValue={1}
+            totalWidth={410} 
+            totalHeight={50} 
+            iconSize={25}
+            step={0.1}
+            valueType='real'
+            rounded 
+            textColor='#B0228C' 
+            iconStyle={{color: 'white' }} 
+            rightButtonBackgroundColor='#EA3788' 
+            leftButtonBackgroundColor='#E56B70'/>
+            
+        
+
             <Button title={"Accept"} onPress={bmrHandle}/>
             <Text>{textShow ?  "All date must be completed" : ""}</Text>
             </View>
@@ -132,11 +156,13 @@ const Bio = () => {
               <Text style={styles.info}>Weight: {mweight}</Text>
               <Text style={styles.info}>Gender: {mgender}</Text>
               <Text style={styles.info}>Activity: {mactivity}</Text>
+              <Text style={styles.info}>Weight loss per Week: {mloss}</Text>
               <TouchableHighlight style={{justifycontent:'center'}} onPress={()=> {console.log(contextValue)
               setModalOpen(true)}}>
                 <Image style={{height:24,
                 width:24,
-                alignItems:'center'}}source={edit}/>
+                alignItems:'center'}}
+                source={edit}/>
               </TouchableHighlight>
 
         </View>

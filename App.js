@@ -23,7 +23,8 @@ const App = () => {
     kcal: "",
     carbs: "",
     fat: "",
-    prot: ""
+    prot: "",
+    loss: 0
   })
 
   
