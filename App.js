@@ -4,7 +4,7 @@ import React,{useState, createContext} from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 
-import { Home, Bio, Meel } from './screens'
+import { Home, Bio, Meal,  } from './screens'
 
 import {BMRContext} from './context/BMRcontext'
 
