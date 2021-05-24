@@ -1,7 +1,10 @@
 import React, {useState, useContext} from 'react';
 import {
   View,
+<<<<<<< HEAD
   ScrollView,
+=======
+>>>>>>> Meals
   Text,
   TextInput,
   StyleSheet,
@@ -9,6 +12,7 @@ import {
   TouchableHighlight,
   Image,
   Button,
+<<<<<<< HEAD
 } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import {arrow, edit} from '../constans/icon';
@@ -46,6 +50,39 @@ const Bio = () => {
       setMetric({...metric, mloss: parseFloat((mloss - 0.1).toFixed(1))});
     }
   };
+=======
+  ScrollView,
+} from 'react-native';
+import {Picker} from '@react-native-picker/picker';
+import {arrow, edit} from '../constans/icon';
+
+import NumericInput from 'react-native-numeric-input';
+
+import {BMRContext} from '../context/BMRcontext';
+import {act} from 'react-test-renderer';
+
+const Bio = () => {
+  const {contextValue, setContextValue} = useContext(BMRContext);
+  const {age, height, weight, gender, activity, loss} = contextValue;
+  const [metric, setMetric] = useState({
+    mage: age,
+    mheight: height,
+    mweight: weight,
+    mgender: gender,
+    mactivity: activity,
+    kcal: '',
+    carbs: '',
+    fat: '',
+    prot: '',
+    mloss: loss,
+  });
+  const [modalOpen, setModalOpen] = useState(false);
+  //const {contextValue,setContextValue}= useContext(BMRContext)
+  const {mage, mheight, mweight, mgender, mactivity, mloss} = metric;
+  const [textShow, setTextShow] = useState(false);
+  const [selectedValue, setSelectedValue] = useState(false);
+  const [selectedActivity, setSelectedActivity] = useState(false);
+>>>>>>> Meals
 
   const bmrHandle = () => {
     if (
@@ -104,87 +141,93 @@ const Bio = () => {
 
       <Modal visible={modalOpen} animationType="slide">
         <ScrollView>
-          <View style={{paddingBottom: 40}}>
-            <TouchableHighlight onPress={() => setModalOpen(false)}>
-              <Image source={arrow} />
-            </TouchableHighlight>
-            <Text>Age</Text>
-            <TextInput
-              style={styles.input}
-              onChangeText={value => {
-                setMetric({...metric, mage: value});
-              }}
-              value={isNaN(metric.mage) ? null : metric.mage}
-              placeholder={metric.mage == '' ? 'Age' : metric.mage}
-              keyboardType="numeric"
-            />
+          <TouchableHighlight onPress={() => setModalOpen(false)}>
+            <Image source={arrow} />
+          </TouchableHighlight>
+          <Text>Age</Text>
+          <TextInput
+            style={styles.input}
+            onChangeText={value => {
+              setMetric({...metric, mage: value});
+            }}
+            value={isNaN(metric.mage) ? null : metric.mage}
+            placeholder={metric.mage == '' ? 'Age' : metric.mage}
+            keyboardType="numeric"
+          />
 
-            <Text>Height</Text>
-            <TextInput
-              style={styles.input}
-              onChangeText={value => {
-                setMetric({...metric, mheight: value});
-              }}
-              value={isNaN(metric.mheight) ? null : metric.mheight}
-              placeholder={metric.mheight == '' ? 'Height' : metric.mheight}
-              keyboardType="numeric"
-            />
+          <Text>Height</Text>
+          <TextInput
+            style={styles.input}
+            onChangeText={value => {
+              setMetric({...metric, mheight: value});
+            }}
+            value={isNaN(metric.mheight) ? null : metric.mheight}
+            placeholder={metric.mheight == '' ? 'Height' : metric.mheight}
+            keyboardType="numeric"
+          />
 
-            <Text>Weight</Text>
-            <TextInput
-              style={styles.input}
-              onChangeText={value => {
-                setMetric({...metric, mweight: value});
-              }}
-              value={isNaN(metric.mweight) ? null : metric.mweight}
-              placeholder={metric.mweight == '' ? 'Weight' : metric.mweight}
-              keyboardType="numeric"
-            />
-            <Text>Gender</Text>
-            <Picker
-              selectedValue={gender}
-              style={styles.input}
-              onValueChange={itemValue => {
-                setMetric({...metric, mgender: itemValue});
-                setSelectedValue(itemValue);
-              }}
-              value={metric.mgender == '' ? null : metric.mgender}>
-              <Picker.Item label="" value="" />
-              <Picker.Item label="Female" value="female" />
-              <Picker.Item label="Male" value="male" />
-            </Picker>
+          <Text>Weight</Text>
+          <TextInput
+            style={styles.input}
+            onChangeText={value => {
+              setMetric({...metric, mweight: value});
+            }}
+            value={isNaN(metric.mweight) ? null : metric.mweight}
+            placeholder={metric.mweight == '' ? 'Weight' : metric.mweight}
+            keyboardType="numeric"
+          />
+          <Text>Gender</Text>
+          <Picker
+            selectedValue={gender}
+            style={styles.input}
+            onValueChange={itemValue => {
+              setMetric({...metric, mgender: itemValue});
+              setSelectedValue(itemValue);
+            }}
+            value={metric.mgender == '' ? null : metric.mgender}>
+            <Picker.Item label="" value="" />
+            <Picker.Item label="Female" value="female" />
+            <Picker.Item label="Male" value="male" />
+          </Picker>
 
-            <Text>Activity</Text>
-            <Picker
-              selectedValue={activity}
-              style={styles.input}
-              onValueChange={itemValue => {
-                setMetric({...metric, mactivity: itemValue});
-                setSelectedActivity(itemValue);
-              }}
-              value={metric.mactivity == '' ? null : metric.mactivity}>
-              <Picker.Item label="" value="" />
-              <Picker.Item label="Sedentary" value="sedentary" />
-              <Picker.Item label="Light" value="light" />
-              <Picker.Item label="Moderative" value="moderative" />
-              <Picker.Item label="Active" value="active" />
-              <Picker.Item label="Extra Active" value="extra active" />
-            </Picker>
+          <Text>Activity</Text>
+          <Picker
+            selectedValue={activity}
+            style={styles.input}
+            onValueChange={itemValue => {
+              setMetric({...metric, mactivity: itemValue});
+              setSelectedActivity(itemValue);
+            }}
+            value={metric.mactivity == '' ? null : metric.mactivity}>
+            <Picker.Item label="" value="" />
+            <Picker.Item label="Sedentary" value="sedentary" />
+            <Picker.Item label="Light" value="light" />
+            <Picker.Item label="Moderative" value="moderative" />
+            <Picker.Item label="Active" value="active" />
+            <Picker.Item label="Extra Active" value="extra active" />
+          </Picker>
 
-            <Text>Weight Loss per Week</Text>
-            <View style={styles.weightLoss}>
-              <Button style={styles.butt} title={'-'} onPress={dec} />
-              <Text style={styles.loss}>{mloss}</Text>
-              <Button style={styles.butt} title={'+'} onPress={inc} />
-            </View>
+          <Text>Weight Loss per Week</Text>
+          <NumericInput
+            value={loss}
+            onChange={value => {
+              setMetric({...metric, mloss: value});
+            }}
+            minValue={0}
+            maxValue={1}
+            totalWidth={410}
+            totalHeight={50}
+            iconSize={25}
+            step={0.1}
+            valueType="real"
+            textColor="#B0228C"
+            iconStyle={{color: 'white'}}
+            rightButtonBackgroundColor="#EA3788"
+            leftButtonBackgroundColor="#E56B70"
+          />
 
-            <Button
-              style={styles.accept}
-              title={'Accept'}
-              onPress={bmrHandle}
-            />
-            <Text>{textShow ? 'All date must be completed' : ''}</Text>
-          </View>
+          <Button title={'Accept'} onPress={bmrHandle} />
+          <Text>{textShow ? 'All date must be completed' : ''}</Text>
         </ScrollView>
       </Modal>
       <Text style={styles.headline}>Bio</Text>
@@ -214,43 +257,6 @@ const styles = StyleSheet.create({
     height: 40,
     margin: 12,
     borderWidth: 1,
-  },
-
-  weightLoss: {
-    display: 'flex',
-    justifyContent: 'space-around',
-    flexDirection: 'row',
-    height: 40,
-    marginBottom: 10,
-    marginTop: 10,
-    alignItems: 'center',
-  },
-
-  loss: {
-    height: 40,
-    width: 200,
-    margin: 12,
-    borderWidth: 1,
-    textAlign: 'center',
-    textAlignVertical: 'center',
-    marginBottom: 10,
-  },
-
-  butt: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    textAlign: 'center',
-    textAlignVertical: 'center',
-  },
-
-  accept: {
-    height: 50,
-    marginBottom: 30,
-    padding: 20,
-    borderWidth: 1,
-    textAlign: 'center',
-    textAlignVertical: 'center',
   },
 
   headline: {

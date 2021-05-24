@@ -10,6 +10,8 @@ export const starch = require('../assets/icons/starch.png')
 export const fat = require('../assets/icons/trans-fat.png')
 export const search = require('../assets/icons/search.png')
 export const edit = require('../assets/icons/edit.png')
+export const uparrow = require('../assets/icons/up-arrow.png')
+export const close = require('../assets/icons/close.png')
 
 export default {
     arrow,
@@ -23,5 +25,7 @@ export default {
     starch,
     fat,
     search,
-    edit
+    edit,
+    uparrow,
+    close,
 }
