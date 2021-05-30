@@ -12,6 +12,7 @@ export const search = require('../assets/icons/search.png')
 export const edit = require('../assets/icons/edit.png')
 export const uparrow = require('../assets/icons/up-arrow.png')
 export const close = require('../assets/icons/close.png')
+export const add = require('../assets/icons/plus.png')
 
 export default {
     arrow,
@@ -28,4 +29,5 @@ export default {
     edit,
     uparrow,
     close,
+    add,
 }
