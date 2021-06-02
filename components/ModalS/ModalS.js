@@ -6,11 +6,15 @@ import {
   Pressable,
   TextInput,
   FlatList,
+  Image,
   SafeAreaView,
+  ScrollView,
 } from 'react-native';
 import styles from './ModalStyle';
 import ProductList from '../ProductList/ProductList';
 import {MealContext} from '../../context/MealContext';
+import axios from "axios"
+import {appKey} from '../login'
 
 const ModalS = props => {
   const {modalOpen, openModal, name} = props;
@@ -26,27 +30,31 @@ const ModalS = props => {
   const numOfDay = new Date().getDate();
   const numOfWeekDay = new Date().getDay();
   const {BigText, LightText, SearchProduct, BackArrow} = styles;
+  const [products,setProducts] = useState([])
+  const [nutritions,setNutritions] = useState()
 
   const [text, setText] = useState('');
-  console.log(text);
+  //console.log(data.foods[1].foodNutrients[0])
+  const handleChangeInput = async (event) => {
+    await axios.get(`https://api.nal.usda.gov/fdc/v1/foods/search?query=${event.nativeEvent.text}&pageSize=10&api_key=${appKey}`)
+    .then((response) => response.data)
+    .then(data => {
+      const productvalue = data.foods.map((value)=>{
+        return ({
+          'id':value.fdcId,
+          'name':value.description,
+          'protein':value.foodNutrients[0].value,
+          'fat':value.foodNutrients[1].value,
+          'carbs':value.foodNutrients[2].value,
+          'calories':value.foodNutrients[3].value
+        })
+      })
+      setProducts(productvalue)
+    })
+    .catch(error => console.log(error))
+  }
 
-  const handleChangeInput = event => {
-    setText(event);
-    //fetch('https://api.spoonacular.com/food/search?query=apple&number=2').then(data => console.log(data.json()))
-    fetch("https://chomp.p.rapidapi.com/product-search.php?name=milk", {
-	"method": "GET",
-	"headers": {
-		"x-rapidapi-key": "9f98e7f5bfmshb483e20ea81eebbp1bccf9jsn1f1df2eb1444",
-		"x-rapidapi-host": "chomp.p.rapidapi.com"
-	}
-})
-.then(response => {
-	console.log(response);
-})
-.catch(err => {
-	console.error(err);
-});
-  };
+
 
   //0e7aaa87ba1946788b2c93deb83024a7
 
@@ -80,13 +88,25 @@ const ModalS = props => {
         <TextInput
           style={SearchProduct}
           placeholder="Search for a product"
-          onChangeText={handleChangeInput}
+          onChangeText={event => setText(event)}
+          onSubmitEditing={handleChangeInput}
           defaultValue={text}></TextInput>
-        <View>
-          {Products.map(value => (
-            <ProductList key={value.name} value={value} />
-          ))}
-        </View>
+        <ScrollView>
+        {
+         products.map(value => {
+           return (<View key={value.id}>
+
+           <View><Text>{value.name}</Text></View>
+            <View>
+              <Text>{value.calories}kcal</Text>
+              <Text>{value.protein} g</Text>
+              <Text>{value.fat} g</Text>
+              <Text>{value.carbs} g</Text>   
+              </View>
+             </View> )
+         }) 
+        }
+        </ScrollView>
       </View>
     </Modal>
   );
