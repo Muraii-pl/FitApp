@@ -30,29 +30,11 @@ const App = () => {
   })
 
   const [mcontextValue, setMContextValue] = useState ({
-    breakfast: [{
-      name:"Eggs",
-      kcal:"480",
-      carbs:'1,2 g',
-      fat:'21,6 g',
-      prot:'28.0 g'
-  }],
+    breakfast: [],
     second: [],
     lunch: [],
     dinner: [],
-    snack: [{
-      name:'Bread',
-      kcal:"780",
-      carbs:'26,2 g',
-      fat:'1,9 g',
-      prot:'1.4 g' 
-      },{
-        name:"Eggs",
-        kcal:"480",
-        carbs:'1,2 g',
-        fat:'21,6 g',
-        prot:'28.0 g'
-    }],
+    snack: [],
     supper: []
   })
 

@@ -88,11 +88,6 @@ const Bio = () => {
       });
       setModalOpen(false);
       setTextShow(false);
-      console.log(
-        !isNaN(parseInt(mage)) &&
-          !isNaN(parseInt(mheight)) &&
-          !isNaN(parseInt(mweight)),
-      );
     } else {
       setTextShow(true);
     }
@@ -197,7 +192,6 @@ const Bio = () => {
       <TouchableHighlight
         style={{justifycontent: 'center'}}
         onPress={() => {
-          console.log(contextValue);
           setModalOpen(true);
         }}>
         <Image

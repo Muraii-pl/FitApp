@@ -15,6 +15,7 @@ import ProductList from '../ProductList/ProductList';
 import {MealContext} from '../../context/MealContext';
 import axios from "axios"
 import {appKey} from '../login'
+import {BMRContext} from '../../context/BMRcontext';
 
 const ModalS = props => {
   const {modalOpen, openModal, name} = props;
@@ -33,6 +34,10 @@ const ModalS = props => {
   const [products,setProducts] = useState([])
   const [nutritions,setNutritions] = useState()
   const {mcontextValue, setMContextValue} = useContext(MealContext)
+
+  const {contextValue, setContextValue} = useContext(BMRContext);
+  const {age, height, weight, gender, activity, loss, kcal, carbs, fat, prot} = contextValue;
+  
 
   const {breakfast,
     second,
@@ -64,7 +69,6 @@ const ModalS = props => {
   const [text, setText] = useState('');
   //console.log(data.foods[1].foodNutrients[0])
   //console.log(meals)
-  console.log(ind)
   const handleChangeInput = async (event) => {
     await axios.get(`https://api.nal.usda.gov/fdc/v1/foods/search?query=${event.nativeEvent.text}&pageSize=10&api_key=E96G3Qj8b6tBhzoZYSKRaWMSqmMs87Gr8CkJWJ6h`)
     .then((response) => response.data)
@@ -90,28 +94,6 @@ const ModalS = props => {
 
   //0e7aaa87ba1946788b2c93deb83024a7
 
-  let k = 0;
-  let c = 0;
-  let f = 0;
-  let p = 0;
-
-  const Products = [
-    {
-      name: 'Eggs',
-      kcal: '480',
-      carbs: '1,2 g',
-      fat: '21,6 g',
-      prot: '28.0 g',
-    },
-    {
-      name: 'Bread',
-      kcal: '780',
-      carbs: '26,2 g',
-      fat: '1,9 g',
-      prot: '1.4 g',
-    },
-  ];
-
   return (
     <Modal visible={modalOpen} animationType="slide">
       <Pressable onPress={openModal}>
@@ -132,7 +114,6 @@ const ModalS = props => {
         {
          products.map(value => {
            return (<View key={value.id} onStartShouldSetResponder ={() => {
-             console.log('it works')
              meals[ind].push({
               name: `${value.name}`,
               kcal: `${value.calories}`,
@@ -140,7 +121,16 @@ const ModalS = props => {
               fat: `${value.fat} g`,
               prot: `${value.protein} g`,
             })
-            console.log(meals)
+            setContextValue({kcal:parseFloat((kcal-value.calories).toFixed(1)),
+            carbs:parseFloat((carbs-value.carbs).toFixed(1)),
+            fat:parseFloat((fat-value.fat).toFixed(1)),
+            prot:parseFloat((prot-value.protein).toFixed(1)),
+            age:age,
+            height:height,
+            weight:weight,
+            gender:gender,
+            activity:activity,
+            loss:loss})
            }}>
 
            <View><Text>{value.name}</Text></View>
