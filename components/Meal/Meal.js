@@ -11,7 +11,33 @@ const Meal = props => {
   const {HeaderWrapper, Icon, NameMeal, ValuesWrapper, ValuesNames} = styles;
   const [showProd,setShowProd] = useState(false)
   const [modalOpen, setModalOpen] = useState(false)
-  //const [contextValue, setContextValue] = useContext(MealContext)
+  const {mcontextValue, setMContextValue} = useContext(MealContext)
+  const {breakfast,
+  second,
+  lunch,
+  dinner,
+  snack,
+  supper} = mcontextValue
+
+  const [ind,setInd] = useState(0);
+
+  const [meals, setMeals] = useState([
+    breakfast,
+    second,
+    lunch,
+    dinner,
+    snack,
+    supper
+  ])
+
+  const MealList = [
+    'breakfast',
+    'second',
+    'lunch',
+    'dinner',
+    'snack',
+    'supper',
+  ];
 
   //const product = contextValue[{name}]
 
@@ -32,6 +58,7 @@ const Meal = props => {
       }
   ]
   const toogleProd = () => {
+    setInd(MealList.indexOf(mealnames))
       setShowProd(!showProd)
   }
 
@@ -64,7 +91,7 @@ const Meal = props => {
         </View>
         <ModalS modalOpen={modalOpen} openModal={toGoModal} name={mealnames}/>
       </View>
-        {showProd ? Products.map(value => (<ProductList key={value.name} value={value}/>)) : null}
+        {showProd ? meals[ind].map(value => (<ProductList key={value.name} value={value}/>)) : null}
     </View>
     
   );

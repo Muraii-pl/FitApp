@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {
   View,
   Text,
@@ -32,13 +32,33 @@ const ModalS = props => {
   const {BigText, LightText, SearchProduct, BackArrow} = styles;
   const [products,setProducts] = useState([])
   const [nutritions,setNutritions] = useState()
+  const {mcontextValue, setMContextValue} = useContext(MealContext)
+
+  const {breakfast,
+    second,
+    lunch,
+    dinner,
+    snack,
+    supper} = mcontextValue
+  
+    const [meals, setMeals] = useState({
+      breakfast: breakfast,
+      second: second,
+      lunch: lunch,
+      dinner: dinner,
+      snack: snack,
+      supper: supper
+    })
 
   const [text, setText] = useState('');
   //console.log(data.foods[1].foodNutrients[0])
+  //console.log(meals)
   const handleChangeInput = async (event) => {
-    await axios.get(`https://api.nal.usda.gov/fdc/v1/foods/search?query=${event.nativeEvent.text}&pageSize=10&api_key=${appKey}`)
+    await axios.get(`https://api.nal.usda.gov/fdc/v1/foods/search?query=${event.nativeEvent.text}&pageSize=10&api_key=E96G3Qj8b6tBhzoZYSKRaWMSqmMs87Gr8CkJWJ6h`)
     .then((response) => response.data)
     .then(data => {
+      //console.log(data.foods[3].foodNutrients)
+
       const productvalue = data.foods.map((value)=>{
         return ({
           'id':value.fdcId,
@@ -57,6 +77,11 @@ const ModalS = props => {
 
 
   //0e7aaa87ba1946788b2c93deb83024a7
+
+  let k = 0;
+  let c = 0;
+  let f = 0;
+  let p = 0;
 
   const Products = [
     {
@@ -94,14 +119,25 @@ const ModalS = props => {
         <ScrollView>
         {
          products.map(value => {
-           return (<View key={value.id}>
+           return (<View key={value.id} onStartShouldSetResponder ={() => {
+             console.log('it works')
+             Products.push({
+              name: `${value.name}`,
+              kcal: `${value.calories}`,
+              carbs: `${value.carbs} g`,
+              fat: `${value.fat} g`,
+              prot: `${value.protein} g`,
+            })
+            console.log(Products)
+           }}>
 
            <View><Text>{value.name}</Text></View>
             <View>
               <Text>{value.calories}kcal</Text>
               <Text>{value.protein} g</Text>
               <Text>{value.fat} g</Text>
-              <Text>{value.carbs} g</Text>   
+              <Text>{value.carbs} g</Text>
+              <Text>------------------------------------------------------------------------------------------------------------</Text>   
               </View>
              </View> )
          }) 
