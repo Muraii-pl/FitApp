@@ -41,18 +41,30 @@ const ModalS = props => {
     snack,
     supper} = mcontextValue
   
-    const [meals, setMeals] = useState({
-      breakfast: breakfast,
-      second: second,
-      lunch: lunch,
-      dinner: dinner,
-      snack: snack,
-      supper: supper
-    })
+    const [meals, setMeals] = useState([
+      breakfast,
+      second,
+      lunch,
+      dinner,
+      snack,
+      supper
+    ])
+
+    const MealList = [
+      'breakfast',
+      'second',
+      'lunch',
+      'dinner',
+      'snack',
+      'supper',
+    ];
+
+  const [ind,setInd] = useState(MealList.indexOf(name));
 
   const [text, setText] = useState('');
   //console.log(data.foods[1].foodNutrients[0])
   //console.log(meals)
+  console.log(ind)
   const handleChangeInput = async (event) => {
     await axios.get(`https://api.nal.usda.gov/fdc/v1/foods/search?query=${event.nativeEvent.text}&pageSize=10&api_key=E96G3Qj8b6tBhzoZYSKRaWMSqmMs87Gr8CkJWJ6h`)
     .then((response) => response.data)
@@ -121,14 +133,14 @@ const ModalS = props => {
          products.map(value => {
            return (<View key={value.id} onStartShouldSetResponder ={() => {
              console.log('it works')
-             Products.push({
+             meals[ind].push({
               name: `${value.name}`,
               kcal: `${value.calories}`,
               carbs: `${value.carbs} g`,
               fat: `${value.fat} g`,
               prot: `${value.protein} g`,
             })
-            console.log(Products)
+            console.log(meals)
            }}>
 
            <View><Text>{value.name}</Text></View>
