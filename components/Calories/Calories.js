@@ -6,7 +6,7 @@ import {BMRContext} from '../../context/BMRcontext'
 
 const Calories = () => {
     const {contextValue,setContextValue}= useContext(BMRContext)
-    const {kcal,carbs,fat,prot} = contextValue
+    const {kcal,carbs,fat,prot,carbs2,fat2,prot2} = contextValue
     const {CaloriesWrapper,DemandWrapper,DemandItem,LightText,CaloriesText,BigText} = styles
     return (
         <View style={CaloriesWrapper}>
@@ -14,7 +14,7 @@ const Calories = () => {
             <View style={DemandItem}><Text style={BigText}>{kcal}</Text><Text style={{...BigText,color:'#000'}}> kcal</Text></View>
             <View style={DemandWrapper}>
                 <View style={DemandItem}>
-                    <ProgressCircle percent={30}
+                    <ProgressCircle percent={((carbs2-carbs)/carbs2)*100}
                                     radius={20}
                                     borderWidth={5}
                                     color="#6900fc"
@@ -26,7 +26,7 @@ const Calories = () => {
                                     </View>
                 </View>
                 <View style={DemandItem}>
-                <ProgressCircle percent={55}
+                <ProgressCircle percent={((fat2-fat)/fat2)*100}
                                     radius={20}
                                     borderWidth={5}
                                     color="#f5b800"
@@ -38,7 +38,7 @@ const Calories = () => {
                                     </View>
                 </View>
                 <View style={DemandItem}>
-                <ProgressCircle percent={90}
+                <ProgressCircle percent={((prot2-prot)/prot2)*100}
                                     radius={20}
                                     borderWidth={5}
                                     color="#3399FF"

@@ -36,7 +36,7 @@ const ModalS = props => {
   const {mcontextValue, setMContextValue} = useContext(MealContext)
 
   const {contextValue, setContextValue} = useContext(BMRContext);
-  const {age, height, weight, gender, activity, loss, kcal, carbs, fat, prot} = contextValue;
+  const {age, height, weight, gender, activity, loss, kcal, carbs, fat, prot, kcal2, carbs2, fat2, prot2} = contextValue;
   
 
   const {breakfast,
@@ -94,6 +94,8 @@ const ModalS = props => {
 
   //0e7aaa87ba1946788b2c93deb83024a7
 
+  console.log(contextValue)
+
   return (
     <Modal visible={modalOpen} animationType="slide">
       <Pressable onPress={openModal}>
@@ -130,7 +132,11 @@ const ModalS = props => {
             weight:weight,
             gender:gender,
             activity:activity,
-            loss:loss})
+            loss:loss,
+            kcal2: kcal2,
+            carbs2: carbs2,
+            fat2: fat2,
+            prot2:prot2})
            }}>
 
            <View><Text>{value.name}</Text></View>

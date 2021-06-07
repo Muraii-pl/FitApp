@@ -59,7 +59,7 @@ const Meal = props => {
         </Pressable>
       </View>
       <View style={ValuesWrapper}>
-        <View>
+        {/* <View>
           <Text style={{...ValuesNames, color: '#32CD32'}}>1250 kcal</Text>
         </View>
         <View>
@@ -70,7 +70,7 @@ const Meal = props => {
         </View>
         <View>
           <Text style={ValuesNames}>29.6 g</Text>
-        </View>
+        </View> */}
         <ModalS modalOpen={modalOpen} openModal={toGoModal} name={mealnames}/>
       </View>
         {showProd ? meals[ind].map(value => (<ProductList key={value.name} value={value}/>)) : null}

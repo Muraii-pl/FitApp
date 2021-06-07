@@ -23,9 +23,13 @@ const App = () => {
     gender:"",
     activity:"",
     kcal: "",
+    kcal2: "",
     carbs: "",
+    carbs2: "",
     fat: "",
+    fat2: "",
     prot: "",
+    prot2: "",
     loss: 0
   })
 

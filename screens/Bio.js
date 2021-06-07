@@ -81,9 +81,13 @@ const Bio = () => {
         gender: mgender,
         activity: mactivity,
         kcal: parseInt(cpm),
+        kcal2: parseInt(cpm),
         carbs: carbs,
+        carbs2: carbs,
         fat: fat,
+        fat2: fat,
         prot: prot,
+        prot2: prot,
         loss: mloss,
       });
       setModalOpen(false);
